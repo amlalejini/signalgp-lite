@@ -26,9 +26,9 @@ class RandomBool {
   template<typename Spec>
   static double map_to_unit( const typename Spec::tag_t& tag ) noexcept {
 
-    constexpr double max_double = Spec::tag_t::MaxDouble();
+    constexpr double max_double = Spec::tag_t::GetNumStates() - 1.0;
 
-    return tag.GetDouble() / max_double;
+    return tag.GetValue() / max_double;
 
   }
 

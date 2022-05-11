@@ -32,17 +32,19 @@ struct Spec {
   using global_matching_t = emp::MatchDepository<
     unsigned short, // program index type
     // matching metric
-    emp::OptimizedApproxDualStreakMetric<64>,
+    // TODO I think the optimized version also doesn't exist in Empirical master
+    emp::ApproxDualStreakMetric<64>,
     // match selector
     emp::statics::RankedSelector<
       std::ratio<1, 5> // match threshold
     >,
     // regulator
     emp::PlusCountdownRegulator<
-      std::deci, // Slope
-      std::ratio<1,4>, // MaxUpreg
-      std::deci, // ClampLeeway
-      2 // CountdownStart
+      // TODO these options aren't in Empirical master, same below
+      std::deci // Slope
+      // std::ratio<1,4>, // MaxUpreg
+      // std::deci, // ClampLeeway
+      // 2 // CountdownStart
     >,
     true, // raw caching
     8 // regulated caching
@@ -55,17 +57,17 @@ struct Spec {
   using local_matching_t = emp::MatchDepository<
     unsigned short, // program index type
     // matching metric
-    emp::OptimizedApproxDualStreakMetric<64>,
+    emp::ApproxDualStreakMetric<64>,
     // match selector
     emp::statics::RankedSelector<
       std::ratio<1, 2> // match threshold
     >,
     // regulator
     emp::PlusCountdownRegulator<
-      std::deci, // Slope
-      std::ratio<1,4>, // MaxUpreg
-      std::deci, // ClampLeeway
-      2 // CountdownStart
+      std::deci // Slope
+      // std::ratio<1,4>, // MaxUpreg
+      // std::deci, // ClampLeeway
+      // 2 // CountdownStart
     >,
     false, // raw caching
     0 // regulated caching

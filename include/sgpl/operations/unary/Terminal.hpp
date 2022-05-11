@@ -28,9 +28,9 @@ class Terminal {
 
     constexpr double max = 1.0;
     constexpr double min = -1.0;
-    constexpr double max_double = Spec::tag_t::MaxDouble();
+    constexpr double max_double = Spec::tag_t::GetNumStates() - 1.0;
 
-    return  (tag.GetDouble() / max_double) * (max - min) + min;
+    return  (tag.GetValue() / max_double) * (max - min) + min;
 
   }
 
