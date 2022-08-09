@@ -3,7 +3,7 @@
 #define SGPL_ALGORITHM_EXECUTE_CORE_CYCLES_HPP_INCLUDE
 
 #include "../../../third-party/Empirical/include/emp/base/assert.hpp"
-#include "../../../third-party/Empirical/include/emp/base/macros.hpp"
+#include "../../../third-party/Empirical/include/emp/meta/macros.hpp"
 
 #include "../hardware/Core.hpp"
 #include "../program/Instruction.hpp"

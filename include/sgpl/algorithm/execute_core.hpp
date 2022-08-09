@@ -17,17 +17,6 @@ inline size_t execute_core(
 };
 
 template<typename Spec>
-inline size_t execute_core(
-  sgpl::Core<Spec>& state,
-  const sgpl::Program<Spec>& program,
-  typename Spec::peripheral_t& peripheral
-) {
-
-  return execute_core(state, program, peripheral, Spec::switch_steps);
-
-};
-
-template<typename Spec>
 [[deprecated("Use execute_core_slice instead.")]]
 inline size_t execute_core(
   sgpl::Core<Spec>& state,
