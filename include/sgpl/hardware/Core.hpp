@@ -80,6 +80,10 @@ public:
     local_jump_table.InitializeLocalAnchors( program, GetProgramCounter() );
   }
 
+  inline void JumpToIndex(const size_t index) {
+    program_counter = index;
+  }
+
   void JumpToGlobalAnchorMatch(
     const tag_t& query, const size_t jt_idx=0
   ) noexcept {
