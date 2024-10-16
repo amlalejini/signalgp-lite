@@ -2,10 +2,10 @@
 #ifndef SGPL_UTILITY_THREADLOCALRANDOM_HPP_INCLUDE
 #define SGPL_UTILITY_THREADLOCALRANDOM_HPP_INCLUDE
 
+#include <cassert>
 #include <cstddef>
 
-#include "../../../third-party/Empirical/include/emp/base/assert.hpp"
-#include "../../../third-party/Empirical/include/emp/math/Random.hpp"
+#include "../../../third-party/conduit/include/uit_emp/math/Random.hpp"
 
 namespace sgpl {
 
@@ -13,7 +13,7 @@ namespace internal {
 
 class ThreadLocalRandom {
 
-  emp::Random rand{ 1 };
+  uit_emp::Random rand{ 1 };
 
   uint32_t cache;
 
@@ -25,7 +25,7 @@ class ThreadLocalRandom {
 
 public:
 
-  emp::Random& Get() { return rand; }
+  uit_emp::Random& Get() { return rand; }
 
   std::byte GetByte() {
 
@@ -43,24 +43,24 @@ public:
   void Reseed( const int seed ) {
 
     // seed <= 0 non-deterministic (uses system time and memory address)
-    emp_assert( seed > 0 );
+    assert( seed > 0 );
 
     cache_pos = sizeof( cache );
 
-    Get() = emp::Random{ seed };
+    Get() = uit_emp::Random{ seed };
 
   }
 
   void Initialize( const int seed ) {
 
     // assert that rng hasn't been touched already
-    emp_assert( Get().GetUInt() == emp::Random{ 1 }.GetUInt() );
+    assert( Get().GetUInt() == uit_emp::Random{ 1 }.GetUInt() );
 
     Reseed( seed );
 
   }
 
-  void SeedStochastically() { Get() = emp::Random{ -1 }; }
+  void SeedStochastically() { Get() = uit_emp::Random{ -1 }; }
 
 };
 

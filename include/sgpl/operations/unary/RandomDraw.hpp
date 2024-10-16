@@ -2,11 +2,12 @@
 #ifndef SGPL_OPERATIONS_UNARY_RANDOMDRAW_HPP_INCLUDE
 #define SGPL_OPERATIONS_UNARY_RANDOMDRAW_HPP_INCLUDE
 
+#include <cassert>
 #include <map>
 #include <set>
 #include <string>
 
-#include "../../../../third-party/Empirical/include/emp/tools/string_utils.hpp"
+#include "../../../../third-party/conduit/include/uit_emp/tools/string_utils.hpp"
 
 #include "../../hardware/Core.hpp"
 #include "../../program/Instruction.hpp"
@@ -39,7 +40,7 @@ class RandomDraw {
   }
 
   static double map_up( const double plusminus_unit_val ) {
-    emp_assert( plusminus_unit_val != 0 );
+    assert( plusminus_unit_val != 0 );
 
     return 1.0 / (
       plusminus_unit_val * plusminus_unit_val * plusminus_unit_val
@@ -76,7 +77,7 @@ public:
   static auto descriptors( const sgpl::Instruction<Spec>& inst ) {
 
     return std::map<std::string, std::string>{
-      { "argument a", emp::to_string( static_cast<int>( inst.args[0] ) ) },
+      { "argument a", uit_emp::to_string( static_cast<int>( inst.args[0] ) ) },
       { "summary", "a = weighted draw from random number generator" },
     };
   }

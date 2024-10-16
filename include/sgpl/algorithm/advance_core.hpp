@@ -5,15 +5,16 @@
 #include <cassert>
 #include <tuple>
 
-#include "../../../third-party/Empirical/include/emp/base/assert.hpp"
-#include "../../../third-party/Empirical/include/emp/meta/macros.hpp"
+#include "../../../third-party/conduit/include/uit_emp/base/macros.hpp"
 
+#include "../debug/sgpl_assert.hpp"
 #include "../hardware/Core.hpp"
 #include "../program/Instruction.hpp"
 #include "../program/Program.hpp"
 #include "../utility/ByteEnumeration.hpp"
 
 namespace sgpl {
+#include "../../../third-party/conduit/include/uit_emp/vendorization/push_macros.hh"
 
 // tried a dispatch table, seemed to do about the same or worse
 // https://eli.thegreenplace.net/2012/07/12/computed-goto-for-efficient-dispatch-tables
@@ -27,13 +28,12 @@ inline void advance_core(
 
   using library_t = typename Spec::library_t;
 
-  emp_assert( program.size() );
+  assert( program.size() );
 
   const auto& instruction = program[ state.GetProgramCounter() ];
 
-  emp_assert( instruction.op_code < library_t::GetSize() );
+  assert( instruction.op_code < library_t::GetSize() );
 
-  // can't use emp_assert due to obsucre macro error
   #define SGPL_CASE_PAYLOAD(N) \
     case N: \
       if constexpr (N < library_t::GetSize()) { \
@@ -52,7 +52,7 @@ inline void advance_core(
     EMP_WRAP_EACH( SGPL_CASE_PAYLOAD, SGPL_BYTE_ENUMERATION )
 
     default:
-      emp_assert( false, instruction.op_code );
+      sgpl_assert( false, instruction.op_code );
       __builtin_unreachable();
 
   }
@@ -74,7 +74,7 @@ inline void advance_core(
 
 }
 
-
+#include "../../../third-party/conduit/include/uit_emp/vendorization/pop_macros.hh"
 } // namespace sgpl
 
 #endif // #ifndef SGPL_ALGORITHM_ADVANCE_CORE_HPP_INCLUDE

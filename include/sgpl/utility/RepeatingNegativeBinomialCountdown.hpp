@@ -2,7 +2,9 @@
 #ifndef SGPL_UTILITY_REPEATINGNEGATIVEBINOMIALCOUNTDOWN_HPP_INCLUDE
 #define SGPL_UTILITY_REPEATINGNEGATIVEBINOMIALCOUNTDOWN_HPP_INCLUDE
 
-#include "../../../third-party/Empirical/include/emp/math/Distribution.hpp"
+#include <cassert>
+
+#include "../../../third-party/conduit/include/uit_emp/math/Distribution.hpp"
 
 #include "MemoizeCtor.hpp"
 #include "ThreadLocalRandom.hpp"
@@ -29,11 +31,11 @@ public:
     const bool res = !remaining_count;
 
     if (!remaining_count) {
-      auto& distn = sgpl::MemoizeCtor<emp::NegativeBinomial>::lookup(p, n);
+      auto& distn = sgpl::MemoizeCtor<uit_emp::NegativeBinomial>::lookup(p, n);
       remaining_count = distn.PickRandom( sgpl::tlrand.Get() );
     }
 
-    emp_assert(remaining_count);
+    assert(remaining_count);
     --remaining_count;
 
     return res;
